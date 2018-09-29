@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { Item } from 'semantic-ui-react';
 
 class App extends Component {
+
   render() {
+    console.log(this.props.testStore);
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h2>React + Redux</h2>
+
+          <Item.Group link>
+              {this.props.testStore.map((arrayItem, index) =>
+
+                  <Item key={index}>
+                      <Item.Image size='tiny' src={arrayItem.general.avatar} />
+
+                      <Item.Content>
+                          <Item.Header>{`${arrayItem.general.firstName} ${arrayItem.general.lastName}`}</Item.Header>
+                      </Item.Content>
+                  </Item>
+              )}
+          </Item.Group>
+
       </div>
     );
   }
 }
 
-export default App;
+export default connect(
+    state => ({
+        testStore: state
+    }),
+    dispatch => ({})
+)(App);
