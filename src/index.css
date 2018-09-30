@@ -4,15 +4,77 @@ body {
   font-family: sans-serif;
 }
 
+#root {
+  height: 100vh;
+}
+
 .App {
   display: flex;
-
+  max-height: 100vh;
 }
 
 aside {
-  width: 40%;
+  max-width: 320px;
+  width: 100%;
+  background: #f2f2f2;
+  overflow-y: scroll;
+  height: 100vh;
+  padding: 5px;
+}
+
+.ui.items {
+  border-top: 1px solid #d5d5d5;
+}
+
+.ui.items>.item {
+  border-bottom: 1px solid #d5d5d5;
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+.ui.items>.item:hover {
+  box-shadow: 0 0 13px 0 rgba(0,0,0,0.1);
+}
+
+.hidden { display: none; }
+
+.show { display: block; }
+
+
+.ui.items > .item > .image + .content {
+  padding: 1em 0 0 1em;
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.items:not(.unstackable) > .item > .image + .content {
+    padding: 1em 0 0 1em;
+  }
+
+}
+
+@media only screen and (max-width: 576px) {
+  aside {
+    display: none;
+  }
 }
 
 main {
-  width: 60%;
+
+}
+
+@media only screen and (max-width: 767px) {
+  .ui.items:not(.unstackable) > .item {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    margin: 0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .ui.items:not(.unstackable) > .item > .image, .ui.items:not(.unstackable) > .item > .image > img {
+    max-width: 100% !important;
+    width: auto !important;
+    max-height: 80px !important;
+  }
 }
