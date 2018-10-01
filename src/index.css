@@ -18,6 +18,7 @@ body {
 /* List Users */
 
 aside {
+  position: relative;
   max-width: 320px;
   width: 100%;
   background: #f2f2f2;
@@ -28,6 +29,7 @@ aside {
 
 .ui.items {
   border-top: 1px solid #d5d5d5;
+  margin-top: 4em;
 }
 
 .ui.items>.item {
@@ -49,6 +51,16 @@ aside {
   padding: 1em 0 0 1em;
 }
 
+.ui.form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 310px;
+  padding: 10px 5px;
+  background: #f2f2f2;
+  z-index: 2;
+}
+
 
 
 /* Content */
@@ -56,6 +68,7 @@ aside {
 main {
   position: relative;
   width: calc(100% - 320px);
+  max-height: 100vh;
 }
 
 .toggleAside {
@@ -63,14 +76,37 @@ main {
   right: 5px;
   top: 5px;
   display: none;
+  background: transparent;
+  border-radius: 3px;
+  border: 1px solid #d5d5d5;
+  padding: 5px;
+  cursor: pointer;
+  outline: none;
+  z-index: 5;
+}
+
+.toggleAside i {
+  margin: 0;
+}
+
+.toggleAside:hover {
+  border: 1px solid #85b7d9;
 }
 
 .ui.grid {
   padding: 65px 30px 50px;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .ui.image {
   width: 100%;
+}
+
+img.ui.image {
+  border: 2px solid #d5d5d5;
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .ui.grid h4 p {
@@ -133,5 +169,8 @@ main {
   }
   .ui.grid {
     padding: 65px 15px 30px;
+  }
+  .ui.form {
+    width: 250px;
   }
 }

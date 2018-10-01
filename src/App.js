@@ -13,12 +13,9 @@ class App extends Component {
         show: true
     };
     this.searchHandler = this.searchHandler.bind(this);
-    // this.toggleAside = this.toggleAside.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
   }
 
   searchHandler() {
-    console.log('findUser', this.searchInput.value);
     this.props.onFindPeople(this.searchInput.value)
   }
 
@@ -34,7 +31,6 @@ class App extends Component {
 
   render() {
       const { selectedIndex } = this.state;
-      console.log(selectedIndex);
       const randomUser = this.props.testStore[selectedIndex];
     return (
       <div className="App">
@@ -71,9 +67,10 @@ class App extends Component {
                       <Image src={randomUser.general.avatar} />
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={10} computer={11}>
-                      <h2>{`${randomUser.general.firstName} ${randomUser.general.lastName}`}</h2>
-                      <h3>Company: {randomUser.job.company}</h3>
+                      <h1>{`${randomUser.general.firstName} ${randomUser.general.lastName}`}</h1>
                       <h3>Position: {randomUser.job.title}</h3>
+                      <h3>Company: {randomUser.job.company}</h3>
+
                       <h4>
                           Contact:
                           <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{randomUser.contact.email}</a></p>
@@ -94,7 +91,6 @@ export default connect(
     }),
     dispatch => ({
         onFindPeople: (firstName) => {
-            console.log(firstName);
             dispatch({ type: 'FIND_PEOPLE', payload: firstName})
         }
     })
