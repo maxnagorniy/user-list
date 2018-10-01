@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Item, Form, Icon } from 'semantic-ui-react';
-
-
-
-// function serchingFor(term){
-//     return function(x){
-//         return x.first.toLowerCase().includes(term.toLowerCase()) || !term;
-//     }
-// }
+import { Item, Form, Icon, Grid, Image } from 'semantic-ui-react';
 
 const isMatch = (user, filter) =>
     new RegExp(filter, "i").test(JSON.stringify(user));
@@ -17,7 +9,8 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      show: true
+        selectedIndex: 0,
+        show: true
     };
     this.searchHandler = this.searchHandler.bind(this);
     // this.toggleAside = this.toggleAside.bind(this);
@@ -29,8 +22,8 @@ class App extends Component {
     this.props.onFindPeople(this.searchInput.value)
   }
 
-  handleClick() {
-      console.log('OK');
+  handleClick(selectedIndex) {
+      this.setState({ selectedIndex });
   }
 
   toggleAside() {
@@ -40,7 +33,9 @@ class App extends Component {
   }
 
   render() {
-      console.log(this.props.testStore);
+      const { selectedIndex } = this.state;
+      console.log(selectedIndex);
+      const randomUser = this.props.testStore[selectedIndex];
     return (
       <div className="App">
           <aside className={this.state.show ? 'show' : 'hidden'}>
@@ -57,7 +52,7 @@ class App extends Component {
               <Item.Group link>
                   {this.props.testStore.map((arrayItem, index) =>
 
-                      <Item key={index} id={index} onClick={()=>{this.handleClick(); this.toggleAside()}}>
+                      <Item key={index} id={index} onClick={()=>{this.handleClick(index);}}>
                           <Item.Image size='tiny' src={arrayItem.general.avatar}/>
 
                           <Item.Content>
@@ -70,14 +65,23 @@ class App extends Component {
           </aside>
 
           <main>
-              <button type="button" onClick={() => this.toggleAside()}><Icon name='bars' size='large' /></button>
-              {/*{this.props.testStore.map((arrayItem, index) =>*/}
-
-                  {/*<div key={index}>*/}
-                      {/*<img src={arrayItem.general.avatar} alt=""/>*/}
-                      {/*<p>{arrayItem.address.street}</p>*/}
-                  {/*</div>*/}
-              {/*)}*/}
+              <button className="toggleAside" type="button" onClick={() => this.toggleAside()}><Icon name='bars' size='large' /></button>
+              <Grid >
+                  <Grid.Column mobile={16} tablet={6} computer={5}>
+                      <Image src={randomUser.general.avatar} />
+                  </Grid.Column>
+                  <Grid.Column mobile={16} tablet={10} computer={11}>
+                      <h2>{`${randomUser.general.firstName} ${randomUser.general.lastName}`}</h2>
+                      <h3>Company: {randomUser.job.company}</h3>
+                      <h3>Position: {randomUser.job.title}</h3>
+                      <h4>
+                          Contact:
+                          <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{randomUser.contact.email}</a></p>
+                          <p><Icon name='phone'  size='small' /> <a href="tel:8959840132">{randomUser.contact.phone}</a></p>
+                      </h4>
+                      <p><strong>Address:</strong> {`${randomUser.address.street}, ${randomUser.address.city}, ${randomUser.address.country}`}</p>
+                  </Grid.Column>
+              </Grid>
           </main>
       </div>
     );

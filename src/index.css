@@ -13,6 +13,10 @@ body {
   max-height: 100vh;
 }
 
+
+
+/* List Users */
+
 aside {
   max-width: 320px;
   width: 100%;
@@ -45,20 +49,53 @@ aside {
   padding: 1em 0 0 1em;
 }
 
+
+
+/* Content */
+
+main {
+  position: relative;
+  width: calc(100% - 320px);
+}
+
+.toggleAside {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: none;
+}
+
+.ui.grid {
+  padding: 65px 30px 50px;
+}
+
+.ui.image {
+  width: 100%;
+}
+
+.ui.grid h4 p {
+  margin: 10px 0;
+}
+
+.ui.grid h4 a {
+  color: #000;
+  transition: all 0.2s ease;
+}
+
+.ui.grid h4 a:hover {
+  color: #1e70bf;
+}
+
+
+
+
+
+/* Responsive */
+
 @media only screen and (max-width: 767px) {
   .ui.items:not(.unstackable) > .item > .image + .content {
     padding: 1em 0 0 1em;
   }
-
-}
-
-@media only screen and (max-width: 576px) {
-  aside {
-    display: none;
-  }
-}
-
-main {
 
 }
 
@@ -76,5 +113,25 @@ main {
     max-width: 100% !important;
     width: auto !important;
     max-height: 80px !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .toggleAside {
+    display: block;
+  }
+  aside {
+    position: absolute;
+    z-index: 2;
+    max-width: 270px;
+  }
+  .ui.items>.item>.content>.description {
+    margin-top: 0.3em;
+  }
+  main {
+    width: 100%;
+  }
+  .ui.grid {
+    padding: 65px 15px 30px;
   }
 }
