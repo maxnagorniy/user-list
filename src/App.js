@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   searchHandler() {
-    this.props.onFindPeople(this.searchInput.value)
+    this.props.onFindUsers(this.searchInput.value)
   }
 
   handleClick(selectedIndex) {
@@ -31,7 +31,7 @@ class App extends Component {
 
   render() {
       const { selectedIndex } = this.state;
-      const randomUser = this.props.testStore[selectedIndex];
+      const selectUser = this.props.usersList[selectedIndex];
     return (
       <div className="App">
           <aside className={this.state.show ? 'show' : 'hidden'}>
@@ -46,7 +46,7 @@ class App extends Component {
                   </Form.Field>
               </Form>
               <Item.Group link>
-                  {this.props.testStore.map((arrayItem, index) =>
+                  {this.props.usersList.map((arrayItem, index) =>
 
                       <Item key={index} id={index} onClick={()=>{this.handleClick(index);}}>
                           <Item.Image size='tiny' src={arrayItem.general.avatar}/>
@@ -64,19 +64,19 @@ class App extends Component {
               <button className="toggleAside" type="button" onClick={() => this.toggleAside()}><Icon name='bars' size='large' /></button>
               <Grid >
                   <Grid.Column mobile={16} tablet={6} computer={5}>
-                      <Image src={randomUser.general.avatar} />
+                      <Image src={selectUser.general.avatar} />
                   </Grid.Column>
                   <Grid.Column mobile={16} tablet={10} computer={11}>
-                      <h1>{`${randomUser.general.firstName} ${randomUser.general.lastName}`}</h1>
-                      <h3>Position: {randomUser.job.title}</h3>
-                      <h3>Company: {randomUser.job.company}</h3>
+                      <h1>{`${selectUser.general.firstName} ${selectUser.general.lastName}`}</h1>
+                      <h3>Position: {selectUser.job.title}</h3>
+                      <h3>Company: {selectUser.job.company}</h3>
 
                       <h4>
                           Contact:
-                          <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{randomUser.contact.email}</a></p>
-                          <p><Icon name='phone'  size='small' /> <a href="tel:8959840132">{randomUser.contact.phone}</a></p>
+                          <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{selectUser.contact.email}</a></p>
+                          <p><Icon name='phone'  size='small' /> <a href="tel:8959840132">{selectUser.contact.phone}</a></p>
                       </h4>
-                      <p><strong>Address:</strong> {`${randomUser.address.street}, ${randomUser.address.city}, ${randomUser.address.country}`}</p>
+                      <p><strong>Address:</strong> {`${selectUser.address.street}, ${selectUser.address.city}, ${selectUser.address.country}`}</p>
                   </Grid.Column>
               </Grid>
           </main>
@@ -87,11 +87,11 @@ class App extends Component {
 
 export default connect(
     state => ({
-        testStore: state.allPeople.filter(user => isMatch(user, state.filterPeople))
+        usersList: state.allUsers.filter(user => isMatch(user, state.filterUsers))
     }),
     dispatch => ({
-        onFindPeople: (firstName) => {
-            dispatch({ type: 'FIND_PEOPLE', payload: firstName})
+        onFindUsers: (firstName) => {
+            dispatch({ type: 'FIND_USERS', payload: firstName})
         }
     })
 )(App);
