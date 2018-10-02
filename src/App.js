@@ -48,37 +48,49 @@ class App extends Component {
               <Item.Group link>
                   {this.props.usersList.map((arrayItem, index) =>
 
-                      <Item key={index} id={index} onClick={()=>{this.handleClick(index);}}>
-                          <Item.Image size='tiny' src={arrayItem.general.avatar}/>
+                          <Item key={index} id={index} onClick={()=>{this.handleClick(index);}}>
+                              <Item.Image size='tiny' src={arrayItem.general.avatar}/>
+                              <Item.Content>
+                                  <Item.Header>{`${arrayItem.general.firstName} ${arrayItem.general.lastName}`}</Item.Header>
+                                  <Item.Description>{arrayItem.job.company}</Item.Description>
+                              </Item.Content>
+                          </Item>
 
-                          <Item.Content>
-                              <Item.Header>{`${arrayItem.general.firstName} ${arrayItem.general.lastName}`}</Item.Header>
-                              <Item.Description>{arrayItem.job.company}</Item.Description>
-                          </Item.Content>
-                      </Item>
                   )}
               </Item.Group>
           </aside>
 
-          <main>
-              <button className="toggleAside" type="button" onClick={() => this.toggleAside()}><Icon name='bars' size='large' /></button>
-              <Grid >
-                  <Grid.Column mobile={16} tablet={6} computer={5}>
-                      <Image src={selectUser.general.avatar} />
-                  </Grid.Column>
-                  <Grid.Column mobile={16} tablet={10} computer={11}>
-                      <h1>{`${selectUser.general.firstName} ${selectUser.general.lastName}`}</h1>
-                      <h3>Position: {selectUser.job.title}</h3>
-                      <h3>Company: {selectUser.job.company}</h3>
 
-                      <h4>
-                          Contact:
-                          <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{selectUser.contact.email}</a></p>
-                          <p><Icon name='phone'  size='small' /> <a href="tel:8959840132">{selectUser.contact.phone}</a></p>
-                      </h4>
-                      <p><strong>Address:</strong> {`${selectUser.address.street}, ${selectUser.address.city}, ${selectUser.address.country}`}</p>
-                  </Grid.Column>
-              </Grid>
+          <main>
+
+              <button className="toggleAside" type="button" onClick={() => this.toggleAside()}><Icon name='bars' size='large' /></button>
+              {
+                  (selectUser && selectUser.general) ?
+
+                      <Grid >
+                          <Grid.Column mobile={16} tablet={6} computer={5}>
+                              <Image src={selectUser.general.avatar} />
+                          </Grid.Column>
+                          <Grid.Column mobile={16} tablet={10} computer={11}>
+                              <h1>{`${selectUser.general.firstName} ${selectUser.general.lastName}`}</h1>
+                              <h3>Position: {selectUser.job.title}</h3>
+                              <h3>Company: {selectUser.job.company}</h3>
+
+                              <h4>
+                                  Contact:
+                                  <p><Icon name='mail' size='small' /> <a href="mailto:Gerry_Hackett77@gmail.com">{selectUser.contact.email}</a></p>
+                                  <p><Icon name='phone'  size='small' /> <a href="tel:8959840132">{selectUser.contact.phone}</a></p>
+                              </h4>
+                              <p><strong>Address:</strong> {`${selectUser.address.street}, ${selectUser.address.city}, ${selectUser.address.country}`}</p>
+                          </Grid.Column>
+                      </Grid>
+
+                      :
+
+                      <h3 className="error-msg">such a user does not exist</h3>
+
+              }
+
           </main>
       </div>
     );
